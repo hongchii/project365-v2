@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.samyo.mapper.AnswerMapper">
+
+	<insert id="insertAnswer">
+		insert into ANSWER 
+			(answer_year ,answer_date,answer ,public_answer ,question_num ,member_num ) 
+		values 
+			(#{answer_year},#{answer_date},#{answer},#{public_answer},#{question_num},#{member_num}); 
+	
+	</insert>
+	<insert id="setCount" >
+		insert into 
+			ANSWER_COUNT
+			( member_num, count, question_num ) 
+		values 
+			( #{member_num}, count+1, #{question_num}); 
+		
+	</insert>
+	
+	<select id="count" parameterType="com.samyo.domain.AnswerCountVO" resultType="int">
+		select
+			count
+		from
+			ANSWER_COUNT
+		where 
+			question_num= #{question_num}
+		and
+			member_num= #{member_num}
+	
+	</select>
+	
+	<select id="selectAnswer" parameterType="hashmap" resultType="com.samyo.domain.AnswerVO" >
+		select 
+			*
+		from 
+			ANSWER 
+		where 
+			question_num= #{question_num}
+		and
+			member_num= #{member_num}
+		and
+			answer_delete = "N"
+		order by answer_num DESC
+			
+		
+	</select>
+	
+	<select id="updateAnswerPage" parameterType="int" resultType="com.samyo.domain.AnswerVO" >
+		select 
+			answer_num, answer, public_answer
+		from 
+			ANSWER 
+		where 
+			answer_num= #{answer_num}
+	</select>
+	<select id="readRandomAnswer" parameterType="int" resultType="String">
+		select 
+			answer
+		from 
+			ANSWER 
+		where 
+			public_answer= "Y"
+		and
+			question_num=#{question_num}
+		order by RAND() limit 8		
+	</select>
+	
+	<update id="updateAnswer" >
+		UPDATE
+			ANSWER 
+		SET 
+			answer = #{answer}, public_answer= #{public_answer}
+		WHERE 
+			answer_num= #{answer_num}
+		and
+			member_num= #{member_num};
+	</update>
+	<update id="updateDelete" >
+		UPDATE
+			ANSWER 
+		SET 
+			answer_delete = "Y", delete_date= #{delete_date}
+		WHERE 
+			answer_num= #{answer_num}
+		and
+			member_num= #{member_num};
+	</update>
+	<update id="publicAnswer" >
+		UPDATE
+			ANSWER 
+		SET 
+			public_answer= #{public_answer}
+		WHERE 
+			answer_num= #{answer_num}
+		and
+			member_num= #{member_num};
+	</update>
+	<update id="updateCountUp" >
+		UPDATE
+			ANSWER_COUNT 
+		SET 
+			count=count+1
+		WHERE 
+			question_num= #{question_num}
+		and
+			member_num= #{member_num};
+	</update>
+	<update id="updateCountDown" >
+		UPDATE
+			ANSWER_COUNT 
+		SET 
+			count=count-1
+		WHERE 
+			question_num= #{question_num}
+		and
+			member_num= #{member_num};
+	</update>
+	
+	
+	
+
+	<select id="readTrash" parameterType="int" resultType="com.samyo.domain.AnswerVO">	
+		select 
+			* 
+		from 
+			ANSWER
+		where 
+			member_num= #{member_num}
+		and
+			answer_delete = "Y"
+		ORDER BY 
+			 question_num DESC, answer_num DESC ;
+	</select>
+	<delete id="deleteDateCount" >		
+		<![CDATA[
+		DELETE FROM 
+			ANSWER 
+		where
+			
+			DATEDIFF(CURDATE() , delete_date) >= 7
+		AND 
+			member_num= #{member_num}
+		AND 
+			answer_delete="Y";
+		]]>
+	</delete>
+	<update id="trashUpdate" >
+		UPDATE
+			ANSWER 
+		SET 
+			answer_delete= "N", delete_date=null
+		WHERE 
+			answer_num= #{answer_num}
+		and
+			member_num= #{member_num};	
+	</update>
+	
+	<delete id="deleteAnswer">
+	DELETE FROM 
+		ANSWER 
+	WHERE 
+		answer_num = #{answer_num};
+
+	</delete>
+		
+
+</mapper>

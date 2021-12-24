@@ -1,8 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="${spring.datasource.driverClassName}"></property>
+		<property name="url" value="${spring.datasource.url}">
+		</property>
+		<property name="username"
+			value="${spring.datasource.username}"></property>
+		<property name="password"
+			value="${spring.datasource.password}"></property>
+	</bean>
+
+	<!-- sqlSession 객체 생성 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- mybatis에서 resultType과 parameterType 사용 시 bean 객체를 사용하려면 패키지 경로 및 bean 
+			클래스 명까지 입력해야한다. 하지만 alias 처리를 해주면 bean클래스명만 입력하면된다. -->
+		<property name="typeAliasesPackage" value="com.project.web" />
+		<!-- <property name="mapperLocations" value="classpath*:/com/spring/mapper/MemberMapper.xml" 
+			/> -->
+		<property name="mapperLocations"
+			value="classpath*:/com/project/mapper/*.xml" />
+	</bean>
+	<!-- sqlSession 객체를 관리하기 위해 사용 -->
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
+	<!-- mybatis mapper 설정관련(사용 시 Namespace 탭에서 mybatis-spring 추가하기) -->
+	<!-- mapper 관련 인터페이스 (ex: MamberMapper.java)를 찾기 위한 패키지 경로 설정함 -->
+	<mybatis-spring:scan
+		base-package="com.project.mapper" />
+
+	<!-- config파일 자동 로드 location="classpath:database.properties" /! -->
+	<context:property-placeholder
+		location="/config/*.properties" />
+
+	<context:component-scan
+		base-package="com.project.*" />
 </beans>
