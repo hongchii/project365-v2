@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -363,129 +365,125 @@ public class AnswerController {
 		
 	}
 	
-	//휴지통 > 진짜 삭제하기
-	@DeleteMapping("/trashes/{answer_num}")
-	public int deleteAnswer(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num) {
-		System.out.println("답변 삭제 시작! : controller name : deleteAnswer");
-		System.out.println("answer_num: "+answer_num);
-		
-		//AnswerVO answer = new AnswerVO();
-		answer.setAnswer_num(answer_num);;
-		//answer.setMember_num(2);
-		//answer.setAnswer_num(answer_num);
-		
-		int result=answerService.deleteAnswer(answer);
-		int result2=1;
-		
-		//답변이 삭제되면 카운트를 -1시켜줍니다.
-		/*if (result == 1 ) {
+	//휴지통 > 삭제하기 (영구삭제)
+		//휴지통에서 조회된 모든 답변중 선택한 답변을 영구삭제
+		@DeleteMapping("/trashes/{answer_num}")
+		public  ResponseEntity<Integer> deleteAnswer(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num) {
+			System.out.println("답변 삭제 시작! : controller name : deleteAnswer");
+			System.out.println("answer_num: "+answer_num);
 			
+			//AnswerVO answer = new AnswerVO();
+			answer.setAnswer_num(answer_num);;
+			//answer.setMember_num(2);
+			//answer.setAnswer_num(answer_num);
 			
-			AnswerCountVO answercount = new AnswerCountVO();
-			answercount.setMember_num(answer.getMember_num());
-			answercount.setQuestion_num(answer.getQuestion_num());
-			System.out.println("answercount.getMember_num: " +answercount.getMember_num());
-			System.out.println("answercount.getQuestion_num: " +answercount.getQuestion_num());
+			int result2=answerService.deleteAnswer(answer);
+			//int result2=1;
 			
-			result2 = answerService.updateCountDown(answercount);	
+			//답변이 삭제되면 카운트를 -1시켜줍니다.
+			/*if (result == 1 ) {
+				
+				
+				AnswerCountVO answercount = new AnswerCountVO();
+				answercount.setMember_num(answer.getMember_num());
+				answercount.setQuestion_num(answer.getQuestion_num());
+				System.out.println("answercount.getMember_num: " +answercount.getMember_num());
+				System.out.println("answercount.getQuestion_num: " +answercount.getQuestion_num());
+				
+				result2 = answerService.updateCountDown(answercount);	
+				
+			}
+			else {
+				System.out.println("실패!!!!!!!!!!!!");
+				result2=0;
+			}*/
+			if (result2==1) { 
+				
+				System.out.println("성공 1, 실패 0 : " + result2);
+				return new ResponseEntity<>(result2, HttpStatus.OK);
+				
+			} else {
+				
+				System.out.println("성공 1, 실패 0 : " + result2);
+				return new ResponseEntity<>(result2, HttpStatus.BAD_REQUEST);
+			}
 			
 		}
-		else {
-			System.out.println("실패!!!!!!!!!!!!");
-			result2=0;
-		}*/
-		System.out.println("성공 1, 실패 0 : " + result2);
-		return result2;
 		
-	}
-	
-	//휴지통 > 휴지통 비우기(전체 삭제)
-	//휴지통 > 진짜 삭제하기
-		@DeleteMapping("/trashes/all")
-		public int allDeleteAnswer(@RequestBody List<AnswerVO> answerlist) {
-			System.out.println("휴지통 비우기 시작! : controller name : allDeleteAnswer");
-			System.out.println("answerlist: "+answerlist);
-			
-			int result2=1;
-
-			for(AnswerVO an : answerlist) {
-				int count =1;
-				System.out.println("--------------------------");
-				System.out.println(count+"번째 for문을 실행합니다");
+		//휴지통 > 휴지통 비우기(전체 삭제)
+		//휴지통 > 진짜 삭제하기
+			@DeleteMapping("/trashes/all")
+			public ResponseEntity<Integer> allDeleteAnswer(@RequestBody List<AnswerVO> answerlist) {
+				System.out.println("휴지통 비우기 시작! : controller name : allDeleteAnswer");
+				System.out.println("answerlist: "+answerlist);
 				
-				
-				AnswerVO answer = an;
-				int result=answerService.deleteAnswer(answer);
-				
-				
-				//답변이 삭제되면 카운트를 -1시켜줍니다.
-				/*if (result == 1 ) {
+				int result2=0;
+				String str = null;
+				for (int i=0; i<answerlist.size(); i++) {
+					str = answerlist.get(i).getAnswer_delete();
+					System.out.println("--------------------------");
+					System.out.println("str: "+ str );
 					
-					
-					AnswerCountVO answercount = new AnswerCountVO();
-					answercount.setMember_num(answer.getMember_num());
-					answercount.setQuestion_num(answer.getQuestion_num());
-					System.out.println("answercount.getMember_num: " +answercount.getMember_num());
-					System.out.println("answercount.getQuestion_num: " +answercount.getQuestion_num());
-					
-					result2 = answerService.updateCountDown(answercount);	
-					count++;
-				}
-				else {
-					System.out.println("실패!!!!!!!!!!!!");
-					result2=0;
-				}*/
-				
-			}
-			
-			System.out.println("성공 1, 실패 0 : " + result2);
-			return result2;
-			
-			
-		}//all
-	
-		/*==============디비넣기=================*/
-		/*==============디비넣기=================*/
-		/*==============디비넣기=================*/
-		/*@PostMapping("/test")
-		public void test() throws Exception {
-			System.out.println("더미 데이터를 insert합니다/ controller name: test");
-			System.out.println("year:"+year);
-			System.out.println("date:"+date);
-			
-			System.out.println("++++++++++++++++++++++++++");
-			//int result = answerService.insertAnswer(answer);
-			//int result2=0;
-			//int result3=0;
-			for(int i=1201; i<1211; i++) {
-				//int b=1201;
-				for(int j=2021; j<2023; j++) {
-					
-					
-						AnswerVO answer = new AnswerVO();
-						answer.setAnswer("답변답변답변.");
-						answer.setAnswer_date(String.valueOf(i));
-						//answer.setAnswer_delete(answer_delete);
-						//answer.setAnswer_num(answer_num);
-						answer.setAnswer_year(String.valueOf(j));
-						//answer.setDelete_date(delete_date);
-						answer.setMember_num(2);
-						//answer.setPublic_answer(public_answer);
-						answer.setQuestion_num(336);
+					if(str.equals("Y")) {
+						//for(AnswerVO an : answerlist) {
+							
+							System.out.println(i+"번째 for문을 실행합니다");
+							System.out.println("--------------------------");
+							
+							AnswerVO answer = answerlist.get(i);
+							int result=answerService.deleteAnswer(answer);
+							
+							result2=1;
+							
+					}	//}
+					else {
+						System.out.println("휴지통 데이터가 아닙니다!");
+						System.out.println("--------------------------");
 						
-						answerService.test(answer);
-					
-					
-					
+						result2=0;
+					}
 					
 				}
-				//++b;
 				
-			}
-		
-		}*/
-
-		
-		/*==============디비넣기=================*/
+				if (result2==1) {
+					
+					System.out.println("성공 1, 실패 0 : " + result2);
+					return new ResponseEntity<>(result2, HttpStatus.OK);
+					
+				} else {
+					
+					System.out.println("성공 1, 실패 0 : " + result2);
+					return new ResponseEntity<>(result2, HttpStatus.BAD_REQUEST);
+				}
+					
+					
+					//답변이 삭제되면 카운트를 -1시켜줍니다.
+					/*if (result == 1 ) {
+						
+						
+						AnswerCountVO answercount = new AnswerCountVO();
+						answercount.setMember_num(answer.getMember_num());
+						answercount.setQuestion_num(answer.getQuestion_num());
+						System.out.println("answercount.getMember_num: " +answercount.getMember_num());
+						System.out.println("answercount.getQuestion_num: " +answercount.getQuestion_num());
+						
+						result2 = answerService.updateCountDown(answercount);	
+						count++;
+					}
+					else {
+						System.out.println("실패!!!!!!!!!!!!");
+						result2=0;
+					}*/
+					
+				//}		
+				
+			}//all 
 	
+	
+		
+		
+		
+		
+		
+		
 }
