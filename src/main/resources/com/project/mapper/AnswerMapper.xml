@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.samyo.mapper.AnswerMapper">
+<mapper namespace="com.project.mapper.AnswerMapper">
 
 	<insert id="insertAnswer">
 		insert into ANSWER 
@@ -19,7 +19,7 @@
 		
 	</insert>
 	
-	<select id="count" parameterType="com.samyo.domain.AnswerCountVO" resultType="int">
+	<select id="count" parameterType="com.project.domain.AnswerCountVO" resultType="int">
 		select
 			count
 		from
@@ -31,7 +31,7 @@
 	
 	</select>
 	
-	<select id="selectAnswer" parameterType="hashmap" resultType="com.samyo.domain.AnswerVO" >
+	<select id="selectAnswer" parameterType="hashmap" resultType="com.project.domain.AnswerVO" >
 		select 
 			*
 		from 
@@ -47,7 +47,7 @@
 		
 	</select>
 	
-	<select id="updateAnswerPage" parameterType="int" resultType="com.samyo.domain.AnswerVO" >
+	<select id="updateAnswerPage" parameterType="int" resultType="com.project.domain.AnswerVO" >
 		select 
 			answer_num, answer, public_answer
 		from 
@@ -121,7 +121,7 @@
 	
 	
 
-	<select id="readTrash" parameterType="int" resultType="com.samyo.domain.AnswerVO">	
+	<select id="readTrash" parameterType="int" resultType="com.project.domain.AnswerVO">	
 		select 
 			* 
 		from 

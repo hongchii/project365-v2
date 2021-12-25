@@ -2,6 +2,7 @@ package com.project.service;
 
 import java.util.List;
 
+import com.project.domain.AnswerCountVO;
 import com.project.domain.AnswerVO;
 
 public interface AnswerService {
@@ -24,7 +25,7 @@ public interface AnswerService {
 	public int trashUpdate(AnswerVO answer);
 	// public List<AnswerVO> readTrash(int member_num, int delete_date);
 	// public int deleteAnswer(int answer_num);
-/*
+
 	public int count(AnswerCountVO answercount); // 하나라도 답변이 존재하는지 판단
 
 	public void setCount(AnswerCountVO answercount);
@@ -46,6 +47,6 @@ public interface AnswerService {
 	// public Integer deleteDateCount(String delete_date);
 
 	public void deleteDateCount(int member_num);
- */
+ 
 
 }

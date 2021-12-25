@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mapper.NickNameMapper">
+
+	<select id="getAdj" resultType="String">
+		select adjective from NICK_ADJ order by RAND() limit 8
+	</select>
+
+	<select id="getNoun" resultType="String">
+		select noun from NICK_NOUN order by RAND() limit 8
+	</select>
+
+</mapper>

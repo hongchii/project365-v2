@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mapper.MemberMapper">
+
+	<!-- <insert id="insertMember" parameterType="hashmap">
+		insert into
+		MEMBER
+		(id, nickname, email, gender, age_range, token, joindate)
+		values
+		(#{id}, #{nickname}, #{email}, #{gender}, #{age_range}, #{token}, now())
+	</insert> -->
+	
+	<insert id="insertMember" parameterType="hashmap">
+		insert into
+		MEMBER
+		(id, nickname, joindate)
+		values
+		(#{id}, #{nickname}, now())
+	</insert>
+
+	<select id="getMember" parameterType="Object" resultType="int">
+		select
+		count(id) as id from MEMBER where id = #{id}
+	</select>
+	
+	<select id="getMemberNum" parameterType="Object" resultType="int">
+		select 
+		member_num from MEMBER where id = #{id}
+	</select>
+</mapper>

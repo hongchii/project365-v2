@@ -3,6 +3,7 @@ package com.project.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import com.project.domain.AnswerCountVO;
 import com.project.domain.AnswerVO;
 
 public interface AnswerMapper {
@@ -28,7 +29,7 @@ public interface AnswerMapper {
 	public List<AnswerVO> readTrash(int member_num);
 
 	// public String count(AnswerCountVO answercount);
-	/*
+	
 	public Object count(AnswerCountVO answercount);
 
 	public void setCount(AnswerCountVO answercount);
@@ -46,7 +47,7 @@ public interface AnswerMapper {
 	public int deleteAnswerInt(String delete_date);
 
 	public void deleteDateCount(int member_num);
-	*/
+	
 	// public List<AnswerVO> deleteDateCount(HashMap<String, Object> map);
 
 	// public void test(AnswerVO answer);
