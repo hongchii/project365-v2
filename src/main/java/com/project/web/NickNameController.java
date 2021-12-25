@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.samyo.domain.NickNameVO;
-import com.samyo.service.NickNameService;
+import com.project.domain.NickNameVO;
+import com.project.service.NickNameService;
 
 @CrossOrigin(origins = "*")
 @RestController

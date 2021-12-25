@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.samyo.domain.MemberVO;
-import com.samyo.service.KakaoAPI;
-import com.samyo.service.MemberService;
+import com.project.domain.MemberVO;
+import com.project.service.KakaoAPI;
+import com.project.service.MemberService;
 
 @CrossOrigin(origins = "*")
 @RestController

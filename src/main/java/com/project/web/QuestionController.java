@@ -8,11 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.samyo.domain.QuestionVO;
-import com.samyo.service.QuestionService;
+import com.project.domain.QuestionVO;
+import com.project.service.QuestionService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -65,28 +64,6 @@ public class QuestionController {
 		}
 		
 	}
-	
-	/*
-	 * 답변이 없는 질문에는 다른 문구 띄워주기.
-	 */
-	@GetMapping(value = "/question/calendars/{question_num}", produces = "application/json; charset=utf-8")
-	public ResponseEntity<QuestionVO> getQuestions2(@PathVariable("question_num") int question_num) throws Exception {
-		System.out.println("넘어온 질문번호 :: " + question_num);
-
-		QuestionVO question = new QuestionVO();
-		question = questionService.getQuestion(question_num);
-		
-		
-		if (question == null) {
-			System.out.println("366개의 질문이 아님. 잘못된 요청");
-			return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
-		} else {
-			System.out.println(question);
-			return new ResponseEntity<>(question, HttpStatus.OK);
-		}
-		
-	}
-	
 	
 }
 	
