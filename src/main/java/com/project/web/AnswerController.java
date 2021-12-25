@@ -366,86 +366,38 @@ public class AnswerController {
 	}
 	
 	//휴지통 > 삭제하기 (영구삭제)
-	//휴지통에서 조회된 모든 답변중 선택한 답변을 영구삭제
-	@DeleteMapping("/trashes/{answer_num}")
-	public  ResponseEntity<Integer> deleteAnswer(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num) {
-		System.out.println("답변 삭제 시작! : controller name : deleteAnswer");
-		System.out.println("answer_num: "+answer_num);
-		
-		//AnswerVO answer = new AnswerVO();
-		answer.setAnswer_num(answer_num);;
-		//answer.setMember_num(2);
-		//answer.setAnswer_num(answer_num);
-		
-		int result2=answerService.deleteAnswer(answer);
-		//int result2=1;
-		
-		//답변이 삭제되면 카운트를 -1시켜줍니다.
-		/*if (result == 1 ) {
+		//휴지통에서 조회된 모든 답변중 선택한 답변을 영구삭제
+		@DeleteMapping("/trashes/{answer_num}")
+		public  ResponseEntity<Integer> deleteAnswer(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num) {
+			System.out.println("답변 삭제 시작! : controller name : deleteAnswer");
+			System.out.println("answer_num: "+answer_num);
 			
+			//AnswerVO answer = new AnswerVO();
+			answer.setAnswer_num(answer_num);;
+			//answer.setMember_num(2);
+			//answer.setAnswer_num(answer_num);
 			
-			AnswerCountVO answercount = new AnswerCountVO();
-			answercount.setMember_num(answer.getMember_num());
-			answercount.setQuestion_num(answer.getQuestion_num());
-			System.out.println("answercount.getMember_num: " +answercount.getMember_num());
-			System.out.println("answercount.getQuestion_num: " +answercount.getQuestion_num());
+			int result2=answerService.deleteAnswer(answer);
+			//int result2=1;
 			
-			result2 = answerService.updateCountDown(answercount);	
-			
-		}
-		else {
-			System.out.println("실패!!!!!!!!!!!!");
-			result2=0;
-		}*/
-		if (result2==1) {
-			
-			System.out.println("성공 1, 실패 0 : " + result2);
-			return new ResponseEntity<>(result2, HttpStatus.OK);
-			
-		} else {
-			
-			System.out.println("성공 1, 실패 0 : " + result2);
-			return new ResponseEntity<>(result2, HttpStatus.BAD_REQUEST);
-		}
-		
-	}
-	
-	//휴지통 > 휴지통 비우기(전체 삭제)
-	//휴지통 > 진짜 삭제하기
-		@DeleteMapping("/trashes/all")
-		public ResponseEntity<Integer> allDeleteAnswer(@RequestBody List<AnswerVO> answerlist) {
-			System.out.println("휴지통 비우기 시작! : controller name : allDeleteAnswer");
-			System.out.println("answerlist: "+answerlist);
-			
-			int result2=0;
-			String str = null;
-			for (int i=0; i<answerlist.size(); i++) {
-				str = answerlist.get(i).getAnswer_delete();
-				System.out.println("--------------------------");
-				System.out.println("str: "+ str );
+			//답변이 삭제되면 카운트를 -1시켜줍니다.
+			/*if (result == 1 ) {
 				
-				if(str.equals("Y")) {
-					//for(AnswerVO an : answerlist) {
-						
-						System.out.println(i+"번째 for문을 실행합니다");
-						System.out.println("--------------------------");
-						
-						AnswerVO answer = answerlist.get(i);
-						int result=answerService.deleteAnswer(answer);
-						
-						result2=1;
-						
-				}	//}
-				else {
-					System.out.println("휴지통 데이터가 아닙니다!");
-					System.out.println("--------------------------");
-					
-					result2=0;
-				}
+				
+				AnswerCountVO answercount = new AnswerCountVO();
+				answercount.setMember_num(answer.getMember_num());
+				answercount.setQuestion_num(answer.getQuestion_num());
+				System.out.println("answercount.getMember_num: " +answercount.getMember_num());
+				System.out.println("answercount.getQuestion_num: " +answercount.getQuestion_num());
+				
+				result2 = answerService.updateCountDown(answercount);	
 				
 			}
-			
-			if (result2==1) {
+			else {
+				System.out.println("실패!!!!!!!!!!!!");
+				result2=0;
+			}*/
+			if (result2==1) { 
 				
 				System.out.println("성공 1, 실패 0 : " + result2);
 				return new ResponseEntity<>(result2, HttpStatus.OK);
@@ -455,29 +407,77 @@ public class AnswerController {
 				System.out.println("성공 1, 실패 0 : " + result2);
 				return new ResponseEntity<>(result2, HttpStatus.BAD_REQUEST);
 			}
-				
-				
-				//답변이 삭제되면 카운트를 -1시켜줍니다.
-				/*if (result == 1 ) {
-					
-					
-					AnswerCountVO answercount = new AnswerCountVO();
-					answercount.setMember_num(answer.getMember_num());
-					answercount.setQuestion_num(answer.getQuestion_num());
-					System.out.println("answercount.getMember_num: " +answercount.getMember_num());
-					System.out.println("answercount.getQuestion_num: " +answercount.getQuestion_num());
-					
-					result2 = answerService.updateCountDown(answercount);	
-					count++;
-				}
-				else {
-					System.out.println("실패!!!!!!!!!!!!");
-					result2=0;
-				}*/
-				
-			//}		
 			
-		}//all
+		}
+		
+		//휴지통 > 휴지통 비우기(전체 삭제)
+		//휴지통 > 진짜 삭제하기
+			@DeleteMapping("/trashes/all")
+			public ResponseEntity<Integer> allDeleteAnswer(@RequestBody List<AnswerVO> answerlist) {
+				System.out.println("휴지통 비우기 시작! : controller name : allDeleteAnswer");
+				System.out.println("answerlist: "+answerlist);
+				
+				int result2=0;
+				String str = null;
+				for (int i=0; i<answerlist.size(); i++) {
+					str = answerlist.get(i).getAnswer_delete();
+					System.out.println("--------------------------");
+					System.out.println("str: "+ str );
+					
+					if(str.equals("Y")) {
+						//for(AnswerVO an : answerlist) {
+							
+							System.out.println(i+"번째 for문을 실행합니다");
+							System.out.println("--------------------------");
+							
+							AnswerVO answer = answerlist.get(i);
+							int result=answerService.deleteAnswer(answer);
+							
+							result2=1;
+							
+					}	//}
+					else {
+						System.out.println("휴지통 데이터가 아닙니다!");
+						System.out.println("--------------------------");
+						
+						result2=0;
+					}
+					
+				}
+				
+				if (result2==1) {
+					
+					System.out.println("성공 1, 실패 0 : " + result2);
+					return new ResponseEntity<>(result2, HttpStatus.OK);
+					
+				} else {
+					
+					System.out.println("성공 1, 실패 0 : " + result2);
+					return new ResponseEntity<>(result2, HttpStatus.BAD_REQUEST);
+				}
+					
+					
+					//답변이 삭제되면 카운트를 -1시켜줍니다.
+					/*if (result == 1 ) {
+						
+						
+						AnswerCountVO answercount = new AnswerCountVO();
+						answercount.setMember_num(answer.getMember_num());
+						answercount.setQuestion_num(answer.getQuestion_num());
+						System.out.println("answercount.getMember_num: " +answercount.getMember_num());
+						System.out.println("answercount.getQuestion_num: " +answercount.getQuestion_num());
+						
+						result2 = answerService.updateCountDown(answercount);	
+						count++;
+					}
+					else {
+						System.out.println("실패!!!!!!!!!!!!");
+						result2=0;
+					}*/
+					
+				//}		
+				
+			}//all 
 	
 	
 		
