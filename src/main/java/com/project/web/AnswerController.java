@@ -148,7 +148,8 @@ public class AnswerController {
 	}
 	
 	//수정페이지 > 내용수정후 > 수정버튼
-	@RequestMapping(value="/answers/pages/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.PATCH} )
+	//@RequestMapping(value="/answers/pages/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.PATCH} )
+	@RequestMapping(value="/answers/pages", method = {RequestMethod.GET, RequestMethod.PATCH} )
 	//public void update(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
 	public void update(@RequestBody AnswerVO answer)throws Exception {
 		System.out.println("수정기능 시작! : controller name : update");
@@ -169,19 +170,25 @@ public class AnswerController {
 	}
 	
 	//내일기장 > 공개여부 버튼
-	@RequestMapping(value="/settings/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.PATCH} )
-	public int publicAnswer(@RequestBody AnswerVO answer, @PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
+	//@RequestMapping(value="/settings/{answer_num}/{member_num}", method = {RequestMethod.GET, RequestMethod.PATCH} )
+	//public int publicAnswer(@RequestBody AnswerVO answer, @PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num)throws Exception {
+	@RequestMapping(value="/settings", method = {RequestMethod.GET, RequestMethod.PATCH} )
+	public int publicAnswer(@RequestBody AnswerVO answer)throws Exception {	
 		System.out.println("공개여부 변경 시작! : controller name : publicAnswer");
 		
 		int result=0;
-		answer.setAnswer_num(answer_num);
-		answer.setMember_num(member_num);
+		//answer.setAnswer_num(answer_num);
+		//answer.setMember_num(member_num);
 		
 		System.out.println("public_answer: "+answer.getPublic_answer());
 		System.out.println("Answer_num: " +answer.getAnswer_num());
 		System.out.println("Member_num: " +answer.getMember_num());
 		
-		result=answerService.publicAnswer(answer);
+		if(answer.getAnswer_num()!=0 && answer.getPublic_answer()!=null && answer.getPublic_answer()!="") {
+			result=answerService.publicAnswer(answer);
+		}else {
+			result =0;
+		}
 		System.out.println("성공 1, 실패 0 : " + result);
 		
 		return result;
@@ -189,33 +196,33 @@ public class AnswerController {
 	
 	
 	//일기장> 내답변 삭제(휴지통으로)
-	@RequestMapping(value="/answers/trashes/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
+	//@RequestMapping(value="/answers/trashes/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
+	@RequestMapping(value="/answers/trashes", method= {RequestMethod.GET, RequestMethod.PATCH})
 	//public int updateDelete(@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
-	public int updateDelete(@RequestBody AnswerVO answer, @PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+	public int updateDelete(@RequestBody AnswerVO answer) {
 		
 		System.out.println("삭제 수정기능 시작! : controller name : updateDelete");
 		
-		answer.setAnswer_num(answer_num);
-		answer.setMember_num(member_num);
+		//answer.setAnswer_num(answer_num);
+		//answer.setMember_num(member_num);
 		
 		System.out.println("Answer_delete: "+answer.getAnswer_delete());
 		System.out.println("Delete_date: "+answer.getDelete_date());
 		System.out.println("Answer_num: " +answer.getAnswer_num());
 		System.out.println("member_num: " +answer.getMember_num());
 		
-		//프론트 단에서 삭제(answer_delete)값을 y로 주었는지 확인
+		
 		int result=0;
 		String str =answer.getAnswer_delete();
 		System.out.println("str: "+str);
-		if (str.equals("Y")) {
+		if (str.equals("N")) {
 			result = answerService.updateDelete(answer);
 		}
 		else {
 			result=0;
-			System.out.println("삭제는 answer_delete값이 Y여야랍니다.");
+			System.out.println("삭제는 answer_delete값이 N여야 Y로 바꿀수 있어요.");
 			
 		}
-		
 		//System.out.println("=========삭제 수정완료=========");
 		
 		//int result = answerService.insertAnswer(answer);
@@ -243,6 +250,8 @@ public class AnswerController {
 		
 		
 	}
+	
+	
 	//달력>날짜에 저장된 답변갯수 불러오기
 	@GetMapping("/numbers/{question_num}/{member_num}")
 	public int countSelect(@PathVariable("question_num") int question_num, @PathVariable("member_num") int member_num) {
@@ -274,7 +283,7 @@ public class AnswerController {
 	//=================================================
 	//휴지통 > 되돌리기 버튼(답변 복구)
 	@RequestMapping(value="/trashes/settings/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
-	public int trashPublic(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+	public ResponseEntity<Integer> trashPublic(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
 		
 		System.out.println("답변 복원하기 시작! : controller name : TrashPublic");
 		
@@ -291,20 +300,23 @@ public class AnswerController {
 		//int result = answerService.trashPublic(answer);
 		
 		String str =answer.getAnswer_delete();
+		String date = answer.getDelete_date();
 		System.out.println("str: "+str);
-		if (str.equals("N")) {
+		//answer_delete가 Y인 답변인지(즉 휴지통에있는 답변이맞는지) 확인후 해당 답변복구를 시작한다.
+		if (str.equals("Y") && date != null ) {
 			//result = answerService.trashPublic(answer);
 			result = answerService.trashUpdate(answer);
 		}
 		else {
 			result=0;
-			System.out.println("삭제는 answer_delete값이 N여야랍니다.");
+			System.out.println("삭제는 answer_delete값이 Y인 값이고, dalete_date값이 null이 아니어야 합니다.");
 			
 		}
 		
+		
 		System.out.println("=========삭제 수정완료=========");
 		System.out.println("=========답변 횟수를 수정합니다=========");
-		int result2=1;
+		
 		
 		//answer_delete값 변경 완료시 실행(다시 내일기장으로 답변 복구)
 		/*if (result == 1 ) {
@@ -322,9 +334,14 @@ public class AnswerController {
 			System.out.println("먼저 answer_delete부터 맞추고 오세요. 실패!!!!!!!!!!!!");
 			result2=0;
 		}*/
-		System.out.println("성공 1, 실패 0 : " + result2);
-		return result2;
-		//return result;
+		if (result ==1) {
+			System.out.println("성공 1, 실패 0 : " + result);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+			
+		} else {
+			System.out.println("성공 1, 실패 0 : " + result);
+			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+		}
 		
 	}
 	
