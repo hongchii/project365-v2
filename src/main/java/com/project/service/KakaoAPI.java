@@ -145,7 +145,7 @@ public class KakaoAPI {
 		return userInfo;
 	}
 
-	public void kakaoLogout(HashMap<String, Object> token) {
+	public void kakaoLogout(String token) {
 		String reqURL = "https://kapi.kakao.com/v1/user/logout";
 		try {
 			URL url = new URL(reqURL);

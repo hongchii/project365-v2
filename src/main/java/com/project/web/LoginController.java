@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -106,14 +107,16 @@ public class LoginController {
 
 	}
 
-	@RequestMapping(value = "/logout")
-	public HashMap<String, String> logout(@RequestBody HashMap<String, Object> token) throws Exception {
-
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public HashMap<String, String> logout(@RequestParam("token") String token) throws Exception {
+		System.out.println("로그아웃 : " + token);
 		HashMap<String, String> message = new HashMap<>();
 
 		if (token == null) {
+			System.out.println("token null");
 			message.put("msg", "token이 없습니다");
 		} else {
+			System.out.println("token");
 			kakaoAPI.kakaoLogout(token);
 			message.put("msg", "로그아웃 되었습니다");
 		}
