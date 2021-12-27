@@ -46,6 +46,8 @@ public interface AnswerService {
 	public List<AnswerVO> readTrash(int member_num);// 삭제한지얼마나지났나
 	// public Integer deleteDateCount(String delete_date);
 
+	
+	public int countRead(int month);//한달 답변불러오기
 	public void deleteDateCount(int member_num);
  
 

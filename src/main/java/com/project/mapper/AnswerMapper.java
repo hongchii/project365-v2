@@ -47,6 +47,8 @@ public interface AnswerMapper {
 	public int deleteAnswerInt(String delete_date);
 
 	public void deleteDateCount(int member_num);
+
+	public int countRead(int month);
 	
 	// public List<AnswerVO> deleteDateCount(HashMap<String, Object> map);
 

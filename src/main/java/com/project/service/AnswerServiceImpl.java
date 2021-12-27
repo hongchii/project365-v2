@@ -238,6 +238,30 @@ public class AnswerServiceImpl implements AnswerService {
 		return str; // 성공
 	}
 
+	@Override
+	public int countRead(int month) {
+		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
+		//int count = answerMapper.countRead(month);
+		System.out.println("한달 답변 count !/ service name: countRead");
+		
+		try {
+			int count = answerMapper.countRead(month);
+			System.out.println("db에서 확인한 답변갯수는 : " + count);
+			return count;//답변갯수를 반환, 0일수도 있다.
+			
+		}
+		catch(NullPointerException e) {
+			System.out.println("해당 날짜에대한 답변은 없어요.");
+			return 0;//0개, 아무것도 작성하지 않은 경우에 해당한다.
+		}
+		
+		//return count;
+	}
+
+	
+	
+	
+	
 	
 	
 	@Override

@@ -19,7 +19,19 @@
 		
 	</insert>
 	<!-- 답변이 존재하는지 확인하는 쿼리 -->
-	<select id="count" parameterType="com.project.domain.AnswerCountVO" resultType="Object">
+	<select id="count" parameterType="com.project.domain.AnswerVO" resultType="Object">
+		select
+			count
+		from
+			ANSWER_COUNT
+		where 
+			question_num= #{question_num}
+		and
+			member_num= #{member_num}
+	
+	</select>
+	<!-- 답변갯수를 받아오는 쿼리 -->
+	<select id="countRead" parameterType="int" resultType="int">
 		select
 			count
 		from

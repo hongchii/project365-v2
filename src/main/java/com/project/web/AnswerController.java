@@ -2,6 +2,7 @@ package com.project.web;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.domain.AnswerCountVO;
 import com.project.domain.AnswerVO;
+import com.project.domain.QuestionVO;
 import com.project.service.AnswerService;
 
 @CrossOrigin(origins = "*")
@@ -332,6 +334,47 @@ public class AnswerController {
       System.out.println("성공 1, 실패 0 : " + result2);
       return result;
    }
+   
+   //한달치 답변갯수를 출력
+ 	@GetMapping("/calendars/{day}")
+ 	public int countRead(@PathVariable("day") int day ) {
+ 	
+ 		int result =0;
+ 		List<Integer> countlist =  new ArrayList<Integer>();
+ 		
+ 		//month=month*100+1;//question_num
+ 		day
+ 		
+ 		for (int i = month; i<day; i++) {
+ 			countlist.add(answerService.countRead(i));	
+ 		}
+ 		
+ 		
+ 		for(int test : countlist) {
+ 			//result.add(str);
+ 			System.out.println("test: "+test);
+ 		}
+ 	
+ 		/*
+ 		Calendar today = Calendar.getInstance();
+		System.out.print("이 해의 며칠 :: ");
+		System.out.println(today.get(Calendar.DAY_OF_YEAR) + 1); //question_num
+		
+		//QuestionVO question = new QuestionVO();
+		//question = questionService.getQuestion(question_num);
+		month=today.get(Calendar.DAY_OF_YEAR) + 1;
+		if (question_num != today.get(Calendar.DAY_OF_YEAR) + 1) {
+			System.out.println("오늘 아님!");
+			question = null;
+			return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
+		} else {
+			System.out.println(question);
+			return new ResponseEntity<>(question, HttpStatus.OK);
+		}
+ 		*/
+ 	
+ 		return result;
+ 	}
    
    //=================================================
    //================== 휴지통 ==========================
