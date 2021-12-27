@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 
 import org.json.simple.parser.JSONParser;
@@ -33,12 +34,13 @@ public class KakaoAPI {
 			conn.setDoOutput(true);
 
 			// POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			Charset charset = Charset.forName("UTF-8");
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), charset));
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=f6901986138e44bdb93305d1621fd37b");
-			sb.append("&redirect_uri=http://localhost:8080/login/oauth_kakao");
-			// sb.append("&redirect_uri=http://localhost:3000/login/oauth_kakao");
+			// sb.append("&redirect_uri=http://localhost:8080/login/oauth_kakao");
+			sb.append("&redirect_uri=http://localhost:3000/365/login/oauth_kakao");
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();
@@ -143,13 +145,13 @@ public class KakaoAPI {
 		return userInfo;
 	}
 
-	public void kakaoLogout(String access_Token) {
+	public void kakaoLogout(String token) {
 		String reqURL = "https://kapi.kakao.com/v1/user/logout";
 		try {
 			URL url = new URL(reqURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+			conn.setRequestProperty("Authorization", "Bearer " + token);
 
 			int responseCode = conn.getResponseCode();
 			System.out.println("responseCode : " + responseCode);
@@ -162,6 +164,7 @@ public class KakaoAPI {
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
+			System.out.println("결과");
 			System.out.println(result);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
