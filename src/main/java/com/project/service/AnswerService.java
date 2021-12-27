@@ -27,11 +27,11 @@ public interface AnswerService {
 	// public int deleteAnswer(int answer_num);
 
 	public int count(AnswerCountVO answercount); // 하나라도 답변이 존재하는지 판단
-
-	public void setCount(AnswerCountVO answercount);
+	public int setCount(AnswerCountVO answercount);//컬럼이 없는 q.n에 해당하는 컬럼을 생성
+	//public void setCount(AnswerCountVO answercount);
 	// public int count(int question_num, int member_num);
 
-	public int updateCountUp(AnswerCountVO answercount);
+	public int updateCountUp(AnswerCountVO answercount);//등록, 복구시 count+1
 
 	public int updateCountDown(AnswerCountVO answercount);
 
