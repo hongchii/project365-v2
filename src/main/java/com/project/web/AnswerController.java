@@ -272,10 +272,13 @@ public class AnswerController {
 	//=================================================
 	//================== 휴지통 ==========================
 	//=================================================
-	//휴지통 > 되돌리기 버튼(답변 복구)
-	@RequestMapping(value="/trashes/settings/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
-	public int trashPublic(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
-		
+	//휴지통 > 복구 버튼
+	//휴지통에서 조회된 답변중 복구하기버튼을 누른 답변을 내 일기장으로 다시 복구시킴
+	//@RequestMapping(value="/trashes/settings/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
+	//public int trashPublic(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+		@RequestMapping(value="/trashes/settings/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
+		public ResponseEntity<Integer> trashPublic(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+				
 		System.out.println("답변 복원하기 시작! : controller name : TrashPublic");
 		
 		answer.setAnswer_num(answer_num);
@@ -286,44 +289,58 @@ public class AnswerController {
 		System.out.println("Delete_date: "+answer.getDelete_date());
 		System.out.println("Answer_num: " +answer.getAnswer_num());
 		System.out.println("Member_num: " +answer.getMember_num());
+		System.out.println("question_num: " +answer.getQuestion_num());
 		
 		int result=0;
+		int result2=0;
 		//int result = answerService.trashPublic(answer);
 		
 		String str =answer.getAnswer_delete();
+		String date = answer.getDelete_date();
 		System.out.println("str: "+str);
-		if (str.equals("N")) {
+		if (str.equals("Y") && date != null ) {
 			//result = answerService.trashPublic(answer);
 			result = answerService.trashUpdate(answer);
 		}
 		else {
 			result=0;
-			System.out.println("삭제는 answer_delete값이 N여야랍니다.");
+			System.out.println("삭제는 answer_delete값이 Y인 값이고, dalete_date값이 null이 아니어야 합니다.");
 			
 		}
-		
-		System.out.println("=========삭제 수정완료=========");
-		System.out.println("=========답변 횟수를 수정합니다=========");
-		int result2=1;
+System.out.println("=========휴지통에서 내일기장으로 복구를 완료함=========");
 		
 		//answer_delete값 변경 완료시 실행(다시 내일기장으로 답변 복구)
-		/*if (result == 1 ) {
+		//answer_count 처리 시작
+		if (result == 1 ) {//복구가 완료되면 result는 1을 반환 받는다.
 			
+			System.out.println("==answer_count 처리를 시작합니다===");
 			AnswerCountVO answercount = new AnswerCountVO();
 			answercount.setMember_num(answer.getMember_num());
 			answercount.setQuestion_num(answer.getQuestion_num());
 			System.out.println("member_num: " +answer.getMember_num());
 			System.out.println("Question_num: " +answer.getQuestion_num());
 			
-			result2 = answerService.updateCountUp(answercount);	
+			result2 = answerService.updateCountUp(answercount);	//성공시 1을반환
 			
 		}
 		else {
-			System.out.println("먼저 answer_delete부터 맞추고 오세요. 실패!!!!!!!!!!!!");
-			result2=0;
-		}*/
-		System.out.println("성공 1, 실패 0 : " + result2);
-		return result2;
+			System.out.println("==answer_count 처리 실패===");
+			System.out.print("먼저 answer_delete부터 맞추고 오세요.");
+			result2=result;
+		}
+		//answer_count 처리 끝
+		
+		//최종 상태 출력
+		if (result2 ==1) {//최종 성공
+			System.out.println("성공 1, 실패 0 : " + result2);
+			return new ResponseEntity<>(result2, HttpStatus.OK);
+			
+		} else {//실패
+			System.out.println("성공 1, 실패 0 : " + result2);
+			return new ResponseEntity<>(result2, HttpStatus.BAD_REQUEST);
+		}
+		
+		
 		//return result;
 		
 	}

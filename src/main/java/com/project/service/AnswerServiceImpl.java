@@ -212,11 +212,15 @@ public class AnswerServiceImpl implements AnswerService {
 		return str; // 성공
 	}
 
+	
+	
 	@Override
 	public void test(AnswerVO answer) {
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 		answerMapper.insertAnswer(answer);
 
 	}
+	
+	
 	
 }
