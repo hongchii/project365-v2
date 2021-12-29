@@ -26,7 +26,7 @@ public class LoginController {
 
 	@Autowired
 	private MemberService memberService;
-
+	/*
 	@RequestMapping(value = "/login/getKakaoAuthUrl")
 	public String getKakaoAuthUrl(HttpServletRequest request) throws Exception {
 		String reqUrl = "https://kauth.kakao.com/oauth/authorize" + "?client_id=f6901986138e44bdb93305d1621fd37b"
@@ -36,7 +36,11 @@ public class LoginController {
 
 		return reqUrl;
 	}
-
+	*/
+	
+	/*
+	 * front에서 code를 받아와서 kakao에 token을 요청한다.
+	 */
 	@RequestMapping(value = "/login/oauth_kakao", method = RequestMethod.GET)
 	public HashMap<String, String> login(@RequestParam("code") String code) throws Exception {
 		System.out.println("code : " + code);
@@ -68,18 +72,17 @@ public class LoginController {
 			System.out.println("이미 가입 된 회원 정보");
 
 			// 멤버번호 가져오기
-			// int member_num = memberService.getMemberNum(userInfo.get("id"));
+			int member_num = memberService.getMemberNum(userInfo.get("id"));
 			// 클라이언트의 아이디가 존재할 때 세션에 해당 아이디와 토큰 등록
 			/*
-			 * if (userInfo.get("id") != null) { session.setAttribute("userId",
-			 * userInfo.get("id")); session.setAttribute("access_Token", access_Token);
-			 * System.out.println("session == :: " + session);
-			 * 
-			 * }
+			 if (userInfo.get("id") != null) { session.setAttribute("userId",
+			  userInfo.get("id")); session.setAttribute("access_Token", access_Token);
+			  System.out.println("session == :: " + session);
+			 }
 			 */
 			// String token = access_Token.substring(5, 15);
 			String token = access_Token;
-			// result.put("member_num", String.valueOf(member_num));
+			result.put("member_num", String.valueOf(member_num));
 			result.put("id", (String) userInfo.get("id"));
 			result.put("nickname", (String) userInfo.get("nickname"));
 			result.put("token", token);
@@ -87,15 +90,17 @@ public class LoginController {
 			return result;
 		} else {
 			memberService.insertMember(userInfo);
-			/*
-			 * int member_num = memberService.getMemberNum(userInfo.get("id")); if
-			 * (userInfo.get("id") != null) { session.setAttribute("userId",
-			 * userInfo.get("id")); session.setAttribute("access_Token", access_Token);
-			 * System.out.println("session == :: " + session); }
+			 
+			int member_num = memberService.getMemberNum(userInfo.get("id")); 
+			 /*
+			 if(userInfo.get("id") != null) { session.setAttribute("userId",
+			   userInfo.get("id")); session.setAttribute("access_Token", access_Token);
+			   System.out.println("session == :: " + session); 
+			 }
 			 */
 			// String token = access_Token.substring(5, 15);
 			String token = access_Token;
-			// result.put("member_num", String.valueOf(member_num));
+			result.put("member_num", String.valueOf(member_num));
 			result.put("id", (String) userInfo.get("id"));
 			result.put("nickname", (String) userInfo.get("nickname"));
 			result.put("token", token);
