@@ -15,11 +15,11 @@
 			ANSWER_COUNT
 			( member_num, count, question_num ) 
 		values 
-			( #{member_num}, count+1, #{question_num}); 
+			( #{member_num}, 1, #{question_num}); 
 		
 	</insert>
-	
-	<select id="count" parameterType="com.project.domain.AnswerCountVO" resultType="int">
+	<!-- 답변이 존재하는지 확인하는 쿼리 -->
+	<select id="count" parameterType="com.project.domain.AnswerCountVO" resultType="Object">
 		select
 			count
 		from
@@ -118,6 +118,23 @@
 			member_num= #{member_num};
 	</update>
 	
+	<!-- 휴지통전체조회 -->
+	<resultMap type="com.project.domain.AnswerCountVO" id="answerMap">
+		<result property="answer_num" column="answer_num"/>
+		<result property="answer_year" column="answer_year"/>
+		<result property="answer_date" column="answer_date"/>
+		<result property="answer" column="answer"/>
+		<result property="question_num" column="question_num"/>
+		<result property="member_num" column="member_num"/>
+		<result property="delete_date" column="delete_date"/>
+		<result property="answer_delete" column="answer_delete"/>
+		<result property="question" column="question"/>
+		<!-- <collection property="questionVO" resultMap="questionVO"/> -->
+	</resultMap> 
+	 <resultMap type="com.project.domain.QuestionVO" id="questionVO"> 
+	 	<result property="question" column="question"/>
+	 </resultMap>
+
 	
 	
 
@@ -150,17 +167,21 @@
 		UPDATE
 			ANSWER 
 		SET 
-			answer_delete= "N", delete_date=null
+			answer_delete= "N", delete_date=null, public_answer ="N"
 		WHERE 
 			answer_num= #{answer_num}
 		and
-			member_num= #{member_num};	
+			member_num= #{member_num}
+		and
+			answer_delete= #{answer_delete};	
 	</update>
 	
 	<delete id="deleteAnswer">
 	DELETE FROM 
 		ANSWER 
 	WHERE 
+		member_num= #{member_num}
+	and
 		answer_num = #{answer_num};
 
 	</delete>

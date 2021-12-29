@@ -116,18 +116,29 @@ public class AnswerServiceImpl implements AnswerService {
 	
 	@Override
 	public int count(AnswerCountVO answercount) {
-		System.out.println("답변 잇는지확인 !/ service name: count");
-
+		System.out.println("답변 있는지확인 !/ service name: count");
+		
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
-		Object result = answerMapper.count(answercount);
-
-		if (result.equals(null) || result.equals(0)) {
-			return 1;// setting으로
-
-		} else {
-			return 0;// up또는 down으로
+		//Object result = answerMapper.count(answercount);
+		//String result = answerMapper.count(answercount);
+		
+		//System.out.println("result.isEmpty(): "+result.isEmpty());
+		//System.out.println("db에서 확인한 result의 값은 : " + result);
+		//if(result.equals(null) || result.equals(0)) {
+		
+		try {
+			Object result = answerMapper.count(answercount);
+			System.out.println("db에서 확인한 result의 값은 : " + result);
+			System.out.println("up또는 down으로");
+			return 0;//up또는 down으로
+			
 		}
-
+		catch(NullPointerException e) {
+			System.out.println("컬럼이 없어요. 새롭게 컬럼을 추가해야 합니다.");
+			return 1;//setting으로
+		}
+		
+		
 	}
 
 	// 달력에서 뿌려주기위한 답변갯수 조회
@@ -143,40 +154,55 @@ public class AnswerServiceImpl implements AnswerService {
 
 	// 최초 답변등록시 answer_count테이블 insert
 	@Override
-	public void setCount(AnswerCountVO answercount) {
+	public int setCount(AnswerCountVO answercount) {
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 		answerMapper.setCount(answercount);
 
+		return 1;
 	}
 
 	// 답변 횟수 업(등록)
 	@Override
 	public int updateCountUp(AnswerCountVO answercount) {
-		System.out.println("답변count !/ service name: updateCount");
-
+		System.out.println("답변count를 증가시킵니다!/ service name: updateCount====");
+		
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
-
+		
 		int result = answerMapper.updateCountUp(answercount);
-
-		if (result == 1) {
-
+		
+		if(result==1) { //count +1 성공
+			System.out.println("count+1 처리에 성공했습니다 !");
 			return 1;
-		} else {
+		}
+		else {//count +1실패
+			System.out.println("count+1 처리에 실패!!!했습니다!!!!");
 			return 0;
 		}
-
+		
 	}
 
 	// 답변횟수 다운 (삭제)
 	@Override
 	public int updateCountDown(AnswerCountVO answercount) {
-		System.out.println("답변count !/ service name: updateCountDown");
+		System.out.println("답변count를 감소시킵니다/ service name: updateCountDown====");
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
-		answerMapper.updateCountDown(answercount);
-		System.out.println("answercount");
-		return 1;// 성공
+		
+		int result=answerMapper.updateCountDown(answercount);
+		System.out.println("result: "+result);
+		if(result==1) { //count -1 성공
+			System.out.println("count-1 처리에 성공했습니다 !");
+			return 1;
+		}
+		else {//count -1실패
+			System.out.println("count-1 처리에 실패!!!했습니다!!!!");
+			return 0;
+		}
+		//System.out.println("answercount");
+		//return 1;// 성공
 	}
 
+	
+	//휴지통에 있는 답변을 영구삭제하기
 	@Override
 	public int deleteAnswer(AnswerVO answer) {
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
