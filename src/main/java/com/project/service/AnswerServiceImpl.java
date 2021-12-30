@@ -112,8 +112,7 @@ public class AnswerServiceImpl implements AnswerService {
 
 	}
 
-	// answer_count테이블에 답변이 존재하는지 확인
-	
+	// answer_count테이블에 답변이 존재하는지 확인	
 	@Override
 	public int count(AnswerCountVO answercount) {
 		System.out.println("답변 있는지확인 !/ service name: count");
@@ -213,7 +212,7 @@ public class AnswerServiceImpl implements AnswerService {
 	// 경과일 확인후 7일지난것 삭제하기
 	@Override
 	public void deleteDateCount(int member_num) {
-		System.out.println("날짜 지난것들 삭제 !/ service name: deleteDateCount");
+		System.out.println("날짜 지난것들 삭제 !/ service name: deleteDateCount=====");
 		AnswerMapper answerMapper = sqlSession.getMapper(AnswerMapper.class);
 
 		System.out.println("member_num" + member_num);
