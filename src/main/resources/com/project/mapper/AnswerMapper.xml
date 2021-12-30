@@ -146,36 +146,21 @@
 	 <resultMap type="com.project.domain.QuestionVO" id="questionVO"> 
 	 	<result property="question" column="question"/>
 	 </resultMap>
+
 	
-	<!-- <resultMap type="com.samyo.domain.QuestionVO" id="questionVO">
-		<result property="question" column="question"/>
-	 	<result property="question_num" column="question_num"/> 
-	</resultMap> -->
+	
 
-	 <!-- <select id="readTrash" parameterType="int" resultType="com.samyo.domain.AnswerVO"> -->
-	 <select id="readTrash" parameterType="int" resultMap="answerMap"> 	
-		SELECT 
-			q.question, 
-			a.answer_num,
-			a.answer_year,
-			a.answer_date,
-			a.answer,
-			a.question_num,
-			a.member_num,
-			a.delete_date,
-			a.answer_delete 
-		FROM 
-			ANSWER a, QUESTION q 
-		WHERE 
-			a.question_num = q.question_num 
-		and 
-			a.answer_delete = "Y" 
-		and 
+	<select id="readTrash" parameterType="int" resultType="com.project.domain.AnswerVO">	
+		select 
+			* 
+		from 
+			ANSWER
+		where 
 			member_num= #{member_num}
+		and
+			answer_delete = "Y"
 		ORDER BY 
-			 question_num DESC, answer_num DESC;
-			 
-
+			 question_num DESC, answer_num DESC ;
 	</select>
 	<delete id="deleteDateCount" >		
 		<![CDATA[
