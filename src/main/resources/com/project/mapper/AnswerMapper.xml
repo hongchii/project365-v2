@@ -10,6 +10,7 @@
 			(#{answer_year},#{answer_date},#{answer},#{public_answer},#{question_num},#{member_num}); 
 	
 	</insert>
+	<!-- ====답변갯수에 관련한 쿼리문===== -->
 	<insert id="setCount" >
 		insert into 
 			ANSWER_COUNT
@@ -130,6 +131,8 @@
 			member_num= #{member_num};
 	</update>
 	
+	
+	
 	<!-- 휴지통전체조회 -->
 	<resultMap type="com.project.domain.AnswerCountVO" id="answerMap">
 		<result property="answer_num" column="answer_num"/>
@@ -147,10 +150,7 @@
 	 	<result property="question" column="question"/>
 	 </resultMap>
 
-	
-	
-
-	<select id="readTrash" parameterType="int" resultType="com.project.domain.AnswerVO">	
+	<!-- <select id="readTrash" parameterType="int" resultType="com.project.domain.AnswerVO">	
 		select 
 			* 
 		from 
@@ -161,7 +161,30 @@
 			answer_delete = "Y"
 		ORDER BY 
 			 question_num DESC, answer_num DESC ;
+	</select> -->
+	<select id="readTrash" parameterType="int" resultMap="answerMap"> 	
+		SELECT 
+			q.question, 
+			a.answer_num,
+			a.answer_year,
+			a.answer_date,
+			a.answer,
+			a.question_num,
+			a.member_num,
+			a.delete_date,
+			a.answer_delete 
+		FROM 
+			ANSWER a, QUESTION q 
+		WHERE 
+			a.question_num = q.question_num 
+		and 
+			a.answer_delete = "Y" 
+		and 
+			member_num= #{member_num}
+		ORDER BY 
+			 question_num DESC, answer_num DESC;
 	</select>
+	
 	<delete id="deleteDateCount" >		
 		<![CDATA[
 		DELETE FROM 

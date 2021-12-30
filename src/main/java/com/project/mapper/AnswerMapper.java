@@ -10,13 +10,14 @@ public interface AnswerMapper {
 
 	public void insertAnswer(AnswerVO answer);
 
-	// public void selectAnswer(AnswerVO answer);
+	//public void selectAnswer(AnswerVO answer);
 
 	public List<AnswerVO> selectAnswer(HashMap<String, Integer> map);
 
 	public AnswerVO updateAnswerPage(int answer_num);
 
-	// public AnswerVO updateAnswer(HashMap<String, Integer> map);
+
+	//public AnswerVO updateAnswer(HashMap<String, Integer> map);
 
 	public void updateAnswer(AnswerVO answer);
 
@@ -28,8 +29,9 @@ public interface AnswerMapper {
 
 	public List<AnswerVO> readTrash(int member_num);
 
-	// public String count(AnswerCountVO answercount);
 	
+
+	//public String count(AnswerCountVO answercount);
 	public Object count(AnswerCountVO answercount);
 
 	public void setCount(AnswerCountVO answercount);
@@ -49,11 +51,12 @@ public interface AnswerMapper {
 	public void deleteDateCount(int member_num);
 
 	public int countRead(int month);
+
+	//public List<AnswerVO> deleteDateCount(HashMap<String, Object> map);
+
+	//public void test(AnswerVO answer);
+
 	
-	// public List<AnswerVO> deleteDateCount(HashMap<String, Object> map);
 
-	// public void test(AnswerVO answer);
-
-	// public void deleteAnswer(int answer_num);
-
+	//public void deleteAnswer(int answer_num);
 }
