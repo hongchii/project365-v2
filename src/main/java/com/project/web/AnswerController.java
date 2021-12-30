@@ -2,6 +2,7 @@ package com.project.web;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.domain.AnswerCountVO;
 import com.project.domain.AnswerVO;
+import com.project.domain.QuestionVO;
 import com.project.service.AnswerService;
 
 @CrossOrigin(origins = "*")
@@ -250,6 +252,115 @@ public class AnswerController {
 		
 		
 	}
+<<<<<<< HEAD
+   
+   
+   //달력>날짜에 저장된 답변갯수 불러오기
+   @GetMapping("/numbers/{question_num}/{member_num}")
+   public int countSelect(@PathVariable("question_num") int question_num, @PathVariable("member_num") int member_num) {
+      System.out.println("날짜에 저장된 답변갯수 불러오기 : controller name : countSelect");
+      
+      int result=0;
+      int result2=0;
+      
+      AnswerCountVO answercount = new AnswerCountVO();
+      answercount.setMember_num(member_num);
+      answercount.setQuestion_num(question_num);
+      
+      result=answerService.countSelect(answercount);
+      
+      //성공실패 확인
+      if(result>-1) {
+         result2=1;
+      }
+      else {
+         result2=0;
+         System.out.println("countSelect 실패.");
+      }
+      System.out.println("성공 1, 실패 0 : " + result2);
+      return result;
+   }
+   
+   //한달치 답변갯수를 출력
+ 	@GetMapping("/calendars/{day}")
+ 	public int countRead(@PathVariable("day") int day ) {
+ 	
+ 		int result =0;
+ 		List<Integer> countlist =  new ArrayList<Integer>();
+ 		
+ 		//month=month*100+1;//question_num
+ 		day
+ 		
+ 		for (int i = month; i<day; i++) {
+ 			countlist.add(answerService.countRead(i));	
+ 		}
+ 		
+ 		
+ 		for(int test : countlist) {
+ 			//result.add(str);
+ 			System.out.println("test: "+test);
+ 		}
+ 	
+ 		/*
+ 		Calendar today = Calendar.getInstance();
+		System.out.print("이 해의 며칠 :: ");
+		System.out.println(today.get(Calendar.DAY_OF_YEAR) + 1); //question_num
+		
+		//QuestionVO question = new QuestionVO();
+		//question = questionService.getQuestion(question_num);
+		month=today.get(Calendar.DAY_OF_YEAR) + 1;
+		if (question_num != today.get(Calendar.DAY_OF_YEAR) + 1) {
+			System.out.println("오늘 아님!");
+			question = null;
+			return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
+		} else {
+			System.out.println(question);
+			return new ResponseEntity<>(question, HttpStatus.OK);
+		}
+ 		*/
+ 	
+ 		return result;
+ 	}
+   
+   //=================================================
+   //================== 휴지통 ==========================
+   //=================================================
+   //휴지통 > 되돌리기 버튼(답변 복구)
+   @RequestMapping(value="/trashes/settings/{answer_num}/{member_num}", method= {RequestMethod.GET, RequestMethod.PATCH})
+   public ResponseEntity<Integer> trashPublic(@RequestBody AnswerVO answer,@PathVariable("answer_num") int answer_num, @PathVariable("member_num") int member_num) {
+      
+      System.out.println("답변 복원하기 시작! : controller name : TrashPublic");
+      
+      answer.setAnswer_num(answer_num);
+      answer.setMember_num(member_num);
+      
+      
+      System.out.println("Answer_delete: "+answer.getAnswer_delete());
+      System.out.println("Delete_date: "+answer.getDelete_date());
+      System.out.println("Answer_num: " +answer.getAnswer_num());
+      System.out.println("Member_num: " +answer.getMember_num());
+      System.out.println("question_num: " +answer.getQuestion_num());
+      
+      int result=0;
+      int result2=0;
+      //int result = answerService.trashPublic(answer);
+      
+      String str =answer.getAnswer_delete();
+      String date = answer.getDelete_date();
+      System.out.println("str: "+str);
+      //answer_delete가 Y인 답변인지(즉 휴지통에있는 답변이맞는지) 확인후 해당 답변복구를 시작한다.
+      if (str.equals("Y") && date != null ) {
+         //result = answerService.trashPublic(answer);
+         result = answerService.trashUpdate(answer);
+      }
+      else {
+         result=0;
+         System.out.println("삭제는 answer_delete값이 Y인 값이고, dalete_date값이 null이 아니어야 합니다.");
+         
+      }
+
+		System.out.println("=========휴지통에서 내일기장으로 복구를 완료함=========");
+=======
 	
 	
 	//달력>날짜에 저장된 답변갯수 불러오기
@@ -317,6 +428,7 @@ public class AnswerController {
 		System.out.println("=========삭제 수정완료=========");
 		System.out.println("=========답변 횟수를 수정합니다=========");
 		
+>>>>>>> 1e28f450dc374576dd4165a0443ca93f9c4dfd3a
 		
 		//answer_delete값 변경 완료시 실행(다시 내일기장으로 답변 복구)
 		/*if (result == 1 ) {
