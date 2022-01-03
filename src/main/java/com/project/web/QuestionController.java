@@ -29,12 +29,12 @@ public class QuestionController {
 		// 받아온 질문 번호와 오늘 날짜를 비교하기 위해
 		Calendar today = Calendar.getInstance();
 		System.out.print("이 해의 며칠 :: ");
-		System.out.println(today.get(Calendar.DAY_OF_YEAR) + 1);
+		System.out.println(today.get(Calendar.DAY_OF_YEAR));
 		
 		QuestionVO question = new QuestionVO();
 		question = questionService.getQuestion(question_num);
 		
-		if (question_num != today.get(Calendar.DAY_OF_YEAR) + 1) {
+		if (question_num != today.get(Calendar.DAY_OF_YEAR)) {
 			System.out.println("오늘 아님!");
 			question = null;
 			return new ResponseEntity<>(question, HttpStatus.BAD_REQUEST);
