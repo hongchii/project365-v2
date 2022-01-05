@@ -122,12 +122,18 @@ public class AnswerServiceImpl implements AnswerService {
 		//String result = answerMapper.count(answercount);
 		
 		//System.out.println("result.isEmpty(): "+result.isEmpty());
-		//System.out.println("db에서 확인한 result의 값은 : " + result);
-		//if(result.equals(null) || result.equals(0)) {
+		/*System.out.println("db에서 확인한 result의 값은 : " + result);
+		if(result.equals(null)) {
+			return 1;//setting으로
+			
+		}else {
+			return 0;//up or down
+		}*/
+		
 		
 		try {
 			Object result = answerMapper.count(answercount);
-			System.out.println("db에서 확인한 result의 값은 : " + result);
+			System.out.println("db에서 확인한 result의 값은 : " + (int)result);
 			System.out.println("up또는 down으로");
 			return 0;//up또는 down으로
 			
@@ -245,7 +251,7 @@ public class AnswerServiceImpl implements AnswerService {
 		
 		try {
 			int count = answerMapper.countRead(month);
-			System.out.println("db에서 확인한 답변갯수는 : " + count);
+			System.out.println("db에서 확인한 답변갯수는 : " + (int)count);
 			return count;//답변갯수를 반환, 0일수도 있다.
 			
 		}
