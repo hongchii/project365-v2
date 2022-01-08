@@ -40,7 +40,8 @@ public class KakaoAPI {
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=f6901986138e44bdb93305d1621fd37b");
 			// sb.append("&redirect_uri=http://localhost:8080/login/oauth_kakao");
-			sb.append("&redirect_uri=http://localhost:3000/365/login/oauth_kakao");
+			//sb.append("&redirect_uri=http://localhost:3000/365/login/oauth_kakao");
+			sb.append("&redirect_uri=http://54.180.114.189:8080/365Project/login/oauth_kakao");
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();
