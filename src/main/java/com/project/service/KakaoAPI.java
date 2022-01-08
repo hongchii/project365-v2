@@ -41,7 +41,8 @@ public class KakaoAPI {
 			sb.append("&client_id=f6901986138e44bdb93305d1621fd37b");
 			// sb.append("&redirect_uri=http://localhost:8080/login/oauth_kakao");
 			//sb.append("&redirect_uri=http://localhost:3000/365/login/oauth_kakao");
-			sb.append("&redirect_uri=http://54.180.114.189:8080/365Project/login/oauth_kakao");
+			//sb.append("&redirect_uri=http://54.180.114.189:8080/365Project/login/oauth_kakao");
+			sb.append("&redirect_uri=http://front365.s3-website.ap-northeast-2.amazonaws.com/365Project/login/oauth_kakao");
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();
