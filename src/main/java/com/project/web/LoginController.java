@@ -37,7 +37,6 @@ public class LoginController {
 		return reqUrl;
 	}
 	*/
-	
 	/*
 	 * front에서 code를 받아와서 kakao에 token을 요청한다.
 	 */
@@ -62,7 +61,7 @@ public class LoginController {
 		 */
 		System.out.println();
 
-		MemberVO member = new MemberVO();
+		//MemberVO member = new MemberVO();
 
 		// 기존 회원인지 중복체크
 		int cnt = memberService.getMember(userInfo.get("id"));
@@ -86,7 +85,8 @@ public class LoginController {
 			result.put("id", (String) userInfo.get("id"));
 			result.put("nickname", (String) userInfo.get("nickname"));
 			result.put("token", token);
-
+			System.out.println("result" + result.toString());
+			
 			return result;
 		} else {
 			memberService.insertMember(userInfo);
@@ -104,7 +104,8 @@ public class LoginController {
 			result.put("id", (String) userInfo.get("id"));
 			result.put("nickname", (String) userInfo.get("nickname"));
 			result.put("token", token);
-
+			System.out.println("result" + result.toString());
+					
 			return result;
 
 			// 토큰 값 전체, 아이디, 닉네임 값 보내는 걸로 수정하기.

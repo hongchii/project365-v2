@@ -2,6 +2,7 @@ package com.project.domain;
 
 public class MemberVO {
 
+	private String member_num;
 	private String id;
 	private String nickname;
 	private String email;
@@ -9,6 +10,14 @@ public class MemberVO {
 	private String age_range;
 	private String token;
 	private String joindate;
+
+	public String getMember_num() {
+		return member_num;
+	}
+
+	public void setMember_num(String member_num) {
+		this.member_num = member_num;
+	}
 
 	public String getId() {
 		return id;
@@ -68,8 +77,12 @@ public class MemberVO {
 
 	@Override
 	public String toString() {
-		return "MemberDTO [id=" + id + ", nickname=" + nickname + ", email=" + email + ", gender=" + gender
-				+ ", age_range=" + age_range + ", token=" + token + ", joindate=" + joindate + "]";
+		return "MemberVO [member_num=" + member_num + ", id=" + id + ", nickname=" + nickname + ", email=" + email
+				+ ", gender=" + gender + ", age_range=" + age_range + ", token=" + token + ", joindate=" + joindate
+				+ ", getMember_num()=" + getMember_num() + ", getId()=" + getId() + ", getNickname()=" + getNickname()
+				+ ", getEmail()=" + getEmail() + ", getGender()=" + getGender() + ", getAge_range()=" + getAge_range()
+				+ ", getToken()=" + getToken() + ", getJoindate()=" + getJoindate() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
 }

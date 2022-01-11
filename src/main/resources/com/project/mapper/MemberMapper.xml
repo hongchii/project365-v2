@@ -17,6 +17,9 @@
 		(id, nickname, joindate)
 		values
 		(#{id}, #{nickname}, now())
+<!-- 		<selectKey resultType="Integer" keyProperty="member_num" order="AFTER">
+        	SELECT member_num FROM MEMBER WHERE id = #{id}        
+    	</selectKey>    -->
 	</insert>
 
 	<select id="getMember" parameterType="Object" resultType="int">
@@ -28,4 +31,5 @@
 		select 
 		member_num from MEMBER where id = #{id}
 	</select>
+	
 </mapper>
