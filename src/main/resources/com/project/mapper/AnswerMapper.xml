@@ -134,7 +134,9 @@
 	
 	
 	<!-- 휴지통전체조회 -->
-	<resultMap type="com.project.domain.AnswerCountVO" id="answerMap">
+	<!-- <resultMap type="com.project.domain.AnswerCountVO" id="answerMap">
+	 -->
+	 <resultMap type="com.project.domain.AnswerVO" id="answerMap">
 		<result property="answer_num" column="answer_num"/>
 		<result property="answer_year" column="answer_year"/>
 		<result property="answer_date" column="answer_date"/>

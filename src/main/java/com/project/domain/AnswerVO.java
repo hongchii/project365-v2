@@ -29,6 +29,9 @@ public class AnswerVO {
 	private int member_num;
 	private String answer_delete;
 	private String delete_date;
+	
+	
+	private String question;
 
 	public int getAnswer_num() {
 		return answer_num;
@@ -101,5 +104,14 @@ public class AnswerVO {
 	public void setDelete_date(String delete_date) {
 		this.delete_date = delete_date;
 	}
+	
+	
+	public String getQuestion() {
+		return question;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	
 
 }

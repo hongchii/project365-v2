@@ -67,8 +67,9 @@
 		<error-code>500</error-code>
 		<location>/error</location>
 	</error-page>
-
+	 
 	<!-- CorsFilter -->
+	
 	<filter>
 		<filter-name>CorsFilter</filter-name>
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
@@ -79,8 +80,8 @@
 		</init-param>
 		<init-param>
 			<param-name>cors.allowed.methods</param-name>
-			<!-- <param-value>GET,POST,HEAD,OPTIONS,PUT,PATCH</param-value> -->
-			<param-value>*</param-value>
+			<param-value>GET,POST,HEAD,OPTIONS,PUT,PATCH,DELETE</param-value>
+			
 		</init-param>
 		<init-param>
 			<param-name>cors.allowed.headers</param-name>
@@ -105,4 +106,7 @@
 		<filter-name>CorsFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- CorsFilter 끝 -->
+	
 </web-app>
