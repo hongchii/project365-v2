@@ -30,8 +30,8 @@
 		base-package="com.project.web" />
 
 
-	<!--cros관련 코드  -->
+	<!--cors관련 코드  -->
 	<beans:import resource="classpath:config/cors-config.xml"/>
-	<!--cros관련 코드 끝 -->
+	<!--cors관련 코드 끝 -->
 
 </beans:beans>
