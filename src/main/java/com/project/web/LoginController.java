@@ -5,15 +5,12 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.domain.MemberVO;
 import com.project.service.KakaoAPI;
 import com.project.service.MemberService;
 
@@ -41,10 +38,13 @@ public class LoginController {
 	 * front에서 code를 받아와서 kakao에 token을 요청한다.
 	 */
 	@RequestMapping(value = "/login/oauth_kakao", method = RequestMethod.GET)
-	public HashMap<String, String> login(@RequestParam("code") String code) throws Exception {
+	public HashMap<String, String> login(@RequestParam("code") String code, HttpServletRequest request) throws Exception {
+		
+		System.out.println("host확인 : " + request.getHeader("host"));
+		String host = request.getHeader("host");
 		System.out.println("code : " + code);
 
-		String access_Token = kakaoAPI.getAccessToken(code);
+		String access_Token = kakaoAPI.getAccessToken(code, host);
 		System.out.println("access_Token : " + access_Token);
 
 		HashMap<String, Object> userInfo = kakaoAPI.getUserInfo(access_Token);

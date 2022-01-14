@@ -20,7 +20,10 @@ import com.google.gson.JsonParser;
 
 @Service
 public class KakaoAPI {
-	public String getAccessToken(String authorize_code) {
+	public String getAccessToken(String authorize_code, String host) {
+		String local = "localhost:3000";
+		String aws = "front365.s3-website.ap-northeast-2.amazonaws.com";
+		
 		String access_Token = "";
 		String refresh_Token = "";
 		String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -40,9 +43,15 @@ public class KakaoAPI {
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=f6901986138e44bdb93305d1621fd37b");
 			//sb.append("&redirect_uri=http://localhost:8080/login/oauth_kakao");
-			//sb.append("&redirect_uri=http://localhost:3000/365/login/oauth_kakao");
+			
+			if (host.equals(local)) {
+				sb.append("&redirect_uri=http://localhost:3000/365Project/login/oauth_kakao");
+
+			}else if (host.equals(aws)) {
+				sb.append("&redirect_uri=http://front365.s3-website.ap-northeast-2.amazonaws.com/365Project/login/oauth_kakao");
+			}
+			
 			//sb.append("&redirect_uri=http://54.180.114.189:8080/365Project/login/oauth_kakao");
-			sb.append("&redirect_uri=http://front365.s3-website.ap-northeast-2.amazonaws.com/365Project/login/oauth_kakao");
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();
