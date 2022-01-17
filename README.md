@@ -16,5 +16,4 @@
 - 형상관리: Git
 
 
-## Member
 ![스크린샷 2022-01-17 오후 8 04 56](https://user-images.githubusercontent.com/73099980/149758596-9959e13b-93cc-4daa-a39e-a1d7b6e208e9.png)
