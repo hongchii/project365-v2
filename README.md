@@ -8,12 +8,7 @@
 2021.11 ~ 진행중
 
 ## Stack
-- 기술언어: Java
-- 프레임워크: Spring frameWork
-- DB PlugIn: Mybatis
-- DB MS: Mysql(MariaDB)
-- Server: Tomcat8.5
-- 형상관리: Git
+- Java, Spring frameWork, Mybatis, Mysql(MariaDB), Tomcat8.5, Git, AWS ec2, AWS RDS
 
 
 ![스크린샷 2022-01-17 오후 8 04 56](https://user-images.githubusercontent.com/73099980/149758596-9959e13b-93cc-4daa-a39e-a1d7b6e208e9.png)
