@@ -5,7 +5,7 @@
 소소하고 다양한 "오늘 나"에 대한 기록을 남기는 나만의 프라이빗 한 일기장 사이트입니다.
 
 ## 프로젝트 기간
-2021.11 ~ 진행중
+2021.11 ~ 2022.01
 
 ## Stack
 - Java, Spring frameWork, Mybatis, Mysql(MariaDB), Tomcat8.5, Git, AWS ec2, AWS RDS
