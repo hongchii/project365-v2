@@ -7,8 +7,17 @@
 ## 프로젝트 기간
 2021.11 ~ 2022.01
 
+## 팀원
+백엔드 2명, 프론트 2명, 디자이너 1명
+
 ## Stack
 - Java, Spring frameWork, Mybatis, Mysql(MariaDB), Tomcat8.5, Git, AWS ec2, AWS RDS
 
 
-![스크린샷 2022-01-17 오후 8 04 56](https://user-images.githubusercontent.com/73099980/149758596-9959e13b-93cc-4daa-a39e-a1d7b6e208e9.png)
+
+
+## 백엔드 개발자 소개
+
+|![스크린샷 2022-01-20 오후 9 58 23](https://user-images.githubusercontent.com/73099980/150343360-b9b42877-4ae6-46d6-a79a-c8b30ab5dfce.png)|![스크린샷 2022-01-20 오후 9 59 33](https://user-images.githubusercontent.com/73099980/150343471-71c8456d-1f56-4698-81b5-5a9bbb628809.png)|
+
+
