@@ -16,8 +16,10 @@
 
 
 
-## 백엔드 개발자 소개
+## 담당기능
+![스크린샷 2022-01-20 오후 9 59 33](https://user-images.githubusercontent.com/73099980/150343471-71c8456d-1f56-4698-81b5-5a9bbb628809.png)
 
-|![스크린샷 2022-01-20 오후 9 58 23](https://user-images.githubusercontent.com/73099980/150343360-b9b42877-4ae6-46d6-a79a-c8b30ab5dfce.png)|![스크린샷 2022-01-20 오후 9 59 33](https://user-images.githubusercontent.com/73099980/150343471-71c8456d-1f56-4698-81b5-5a9bbb628809.png)|
+![스크린샷 2022-01-20 오후 9 58 23](https://user-images.githubusercontent.com/73099980/150343360-b9b42877-4ae6-46d6-a79a-c8b30ab5dfce.png)
+
 
 
