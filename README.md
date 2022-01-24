@@ -20,12 +20,12 @@
 ## 담당기능
 ![스크린샷 2022-01-20 오후 9 59 33](https://user-images.githubusercontent.com/73099980/150343471-71c8456d-1f56-4698-81b5-5a9bbb628809.png)
 [@hongchii](https://github.com/hongchii)
-> 질문 api 구현
-> 메인 페이지 랜덤 닉네임 api 구현
-> 카카오 로그인 / 로그아웃 api 구현
+- 질문 api 구현
+- 메인 페이지 랜덤 닉네임 api 구현
+- 카카오 로그인 / 로그아웃 api 구현
 
 ![스크린샷 2022-01-20 오후 9 58 23](https://user-images.githubusercontent.com/73099980/150343360-b9b42877-4ae6-46d6-a79a-c8b30ab5dfce.png)
 [@do0413](https://github.com/do0413)
-> 내일기장 답변 관련 CRUD api 구현
-> 메인 페이지 랜덤 답변 api 구현
-> 휴지통 복원, 완전 삭제 api 구현
+- 내일기장 답변 관련 CRUD api 구현
+- 메인 페이지 랜덤 답변 api 구현
+- 휴지통 복원, 완전 삭제 api 구현
