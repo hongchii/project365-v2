@@ -17,7 +17,7 @@
 - Java, SpringFrameWork, Mybatis, Mysql(MariaDB), Tomcat8.5, Git, AWS ec2, AWS RDS
 
 ## 주요화면
-![스크린샷 2022-01-26 오후 10 36 49](https://user-images.githubusercontent.com/73099980/151173415-3e9a1725-e857-4066-bceb-5b0360f42866.png)
+![스크린샷 2022-01-26 오후 10 42 43](https://user-images.githubusercontent.com/73099980/151173690-921c7bb7-20b8-4f23-ac47-04745767d83c.png)
 
 ## 주요기능
 
