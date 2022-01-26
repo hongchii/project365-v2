@@ -16,6 +16,9 @@
 ## Stack
 - Java, SpringFrameWork, Mybatis, Mysql(MariaDB), Tomcat8.5, Git, AWS ec2, AWS RDS
 
+## 주요화면
+![스크린샷 2022-01-22 오후 8 51 38](https://user-images.githubusercontent.com/73099980/151172301-896d50cb-daad-46b7-bed5-4d59b8e73400.png)
+
 ## 주요기능
 
 ## 담당기능
