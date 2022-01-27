@@ -25,8 +25,11 @@
 
 
 ## 주요화면
+- 메인페이지
 ![스크린샷 2022-01-26 오후 10 42 43](https://user-images.githubusercontent.com/73099980/151173690-921c7bb7-20b8-4f23-ac47-04745767d83c.png)
 
+- 로그인
+![스크린샷 2022-01-27 오후 9 44 15](https://user-images.githubusercontent.com/73099980/151361650-cbe277b7-5b17-4e4e-8dd0-122225df6088.png)
 
 ## 주요기능
 
