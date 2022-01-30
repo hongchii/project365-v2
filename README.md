@@ -34,6 +34,9 @@
 - 내일기장페이지
 ![스크린샷 2022-01-27 오후 9 44 39](https://user-images.githubusercontent.com/73099980/151664102-a872a9f1-6f29-455c-8ccd-3e42db068fb0.png)
 
+- 휴지통페이지
+![스크린샷 2022-01-27 오후 9 45 05](https://user-images.githubusercontent.com/73099980/151697087-eb9ad1d1-9b01-4d3d-8ec1-107d6f804f90.png)
+
 
 ## 주요기능
 
